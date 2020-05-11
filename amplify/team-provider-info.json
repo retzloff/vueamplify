@@ -10,6 +10,11 @@
             "StackName": "amplify-awsvue-dev-104401",
             "StackId": "arn:aws:cloudformation:us-east-1:323963158605:stack/amplify-awsvue-dev-104401/db970860-9395-11ea-91a8-0a54954134e7",
             "AmplifyAppId": "dihpxy873l0o5"
+        },
+        "categories": {
+            "auth": {
+                "awsvue1ad7931c": {}
+            }
         }
     }
 }

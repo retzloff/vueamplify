@@ -1,1 +1,10 @@
-{}
+{
+	"auth": {
+		"awsvue1ad7931c": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [],
+			"customAuth": false
+		}
+	}
+}
