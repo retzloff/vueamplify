@@ -1,19 +1,44 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <amplify-authenticator>
+      <h1>Vue ➕ Amplify</h1>
+      <section class="actions">
+        <button class="actions__button" @click="logAuth">Log</button>
+        <button class="actions__button" disabled>Test GET</button>
+        <button class="actions__button" disabled>Test POST</button>
+        <button class="actions__button" disabled>Test GET + query</button>
+        <button class="actions__button" disabled>Test Step Function</button>
+      </section>
+      <amplify-sign-out></amplify-sign-out>
+    </amplify-authenticator>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+/* eslint-disable no-unused-vars */
+import { Auth } from "aws-amplify";
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  name: "App",
+  components: {},
+  data() {
+    return {};
+  },
+
+  methods: {
+    async logAuth() {
+      try {
+        const user = await Auth.currentAuthenticatedUser();
+        const session = await Auth.currentSession();
+
+        console.dir("User", user);
+        console.dir("Session", session);
+      } catch (error) {
+        console.error(error);
+      }
+    }
   }
-}
+};
 </script>
 
 <style>
@@ -24,5 +49,31 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin: 12px 0;
+}
+
+.actions__button {
+  padding: 8px;
+  border-radius: 2px;
+  color: #253746;
+  font-size: 14px;
+  font-weight: 300;
+  background: #ff9900;
+  border: none;
+  cursor: pointer;
+}
+
+.actions__button:hover {
+  opacity: 0.8;
+}
+
+.actions__button[disabled] {
+  color: hsla(0, 0%, 100%, 0.8);
 }
 </style>
