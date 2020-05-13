@@ -1,27 +1,42 @@
 <template>
   <div id="app">
     <amplify-authenticator>
-      <h1>Vue ➕ Amplify</h1>
+      <amplify-sign-up
+        slot="sign-up"
+        :form-fields.prop="formFields"
+      ></amplify-sign-up>
+      <header>
+        <div>
+          <amplify-sign-out></amplify-sign-out>
+        </div>
+        <h1>Vue ➕ Amplify</h1>
+      </header>
       <section class="actions">
-        <button class="actions__button" @click="logAuth">Log</button>
-        <button class="actions__button" @click="doGet()">Test GET</button>
-        <button class="actions__button" @click="doGet(true)">
+        <b-button @click="logAuth">Log</b-button>
+        <b-button @click="doGet()">Test GET</b-button>
+        <b-button @click="doGet(true)">
           Test GET + query
-        </button>
-        <button class="actions__button" @click="doPost()">Test POST</button>
-        <button class="actions__button" @click="doPost(true)">
+        </b-button>
+        <b-button @click="doPost()">Test POST</b-button>
+        <b-button @click="doPost(true)">
           Test POST + body
-        </button>
+        </b-button>
       </section>
-
-      <amplify-sign-out></amplify-sign-out>
+      <section v-if="results" class="viewer">
+        <vue-json-pretty
+          :showLength="true"
+          :highlightMouseoverNode="true"
+          :data="results"
+        >
+        </vue-json-pretty>
+      </section>
     </amplify-authenticator>
   </div>
 </template>
 
 <script>
-/* eslint-disable no-unused-vars, no-debugger */
 import { API, Auth } from "aws-amplify";
+import VueJsonPretty from "vue-json-pretty";
 
 const apiName = "vueAmpAPI";
 const path = "/greet";
@@ -34,10 +49,33 @@ const options = {
 
 export default {
   name: "App",
-  components: {},
+
+  components: {
+    VueJsonPretty,
+  },
+
   data() {
     return {
       postWithBody: false,
+      results: null,
+
+      formFields: [
+        {
+          type: "username",
+          placeholder: "Username",
+          required: true,
+        },
+        {
+          type: "password",
+          placeholder: "Password",
+          required: true,
+        },
+        {
+          type: "email",
+          placeholder: "Email Address",
+          required: true,
+        },
+      ],
     };
   },
 
@@ -50,6 +88,7 @@ export default {
         console.group("logAuth");
         console.log("User: ", user);
         console.log("Session: ", session);
+        this.results = { user, session };
         console.groupEnd();
       } catch (error) {
         console.error(error);
@@ -68,6 +107,7 @@ export default {
         const data = await API.get(apiName, getPath, getOptions);
         console.group("doGet");
         console.log(data);
+        this.results = data;
         console.groupEnd();
       } catch (error) {
         console.error(error);
@@ -87,6 +127,7 @@ export default {
       const data = await API.post(apiName, path, postOptions);
       console.group("doPost");
       console.log(data);
+      this.results = data;
       console.groupEnd();
     },
   },
@@ -100,7 +141,13 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin: 22px 12px 0 12px;
+}
+
+header > div {
+  position: absolute;
+  top: 22px;
+  right: 12px;
 }
 
 .actions {
@@ -110,22 +157,14 @@ export default {
   margin: 12px 0;
 }
 
-.actions__button {
-  padding: 8px;
-  border-radius: 2px;
-  color: #253746;
-  font-size: 14px;
-  background: #ff9900;
-  border: none;
-  cursor: pointer;
-}
-
-.actions__button:hover {
-  opacity: 0.8;
-}
-
-.actions__button[disabled] {
-  color: hsla(0, 0%, 100%, 0.8);
-  cursor: not-allowed;
+.viewer {
+  width: 90%;
+  margin: 22px auto;
+  padding: 22px;
+  text-align: left;
+  border: solid 2px rgb(90, 98, 104);
+  border-radius: 5px;
+  background-color: rgba(112, 128, 144, 0.144);
+  font-weight: 800;
 }
 </style>
