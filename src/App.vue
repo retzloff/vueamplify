@@ -4,25 +4,41 @@
       <h1>Vue ➕ Amplify</h1>
       <section class="actions">
         <button class="actions__button" @click="logAuth">Log</button>
-        <button class="actions__button" disabled>Test GET</button>
-        <button class="actions__button" disabled>Test POST</button>
-        <button class="actions__button" disabled>Test GET + query</button>
-        <button class="actions__button" disabled>Test Step Function</button>
+        <button class="actions__button" @click="doGet()">Test GET</button>
+        <button class="actions__button" @click="doGet(true)">
+          Test GET + query
+        </button>
+        <button class="actions__button" @click="doPost()">Test POST</button>
+        <button class="actions__button" @click="doPost(true)">
+          Test POST + body
+        </button>
       </section>
+
       <amplify-sign-out></amplify-sign-out>
     </amplify-authenticator>
   </div>
 </template>
 
 <script>
-/* eslint-disable no-unused-vars */
-import { Auth } from "aws-amplify";
+/* eslint-disable no-unused-vars, no-debugger */
+import { API, Auth } from "aws-amplify";
+
+const apiName = "vueAmpAPI";
+const path = "/greet";
+const options = {
+  headers: {
+    Authorization: null,
+    "Content-Type": "application/json",
+  },
+};
 
 export default {
   name: "App",
   components: {},
   data() {
-    return {};
+    return {
+      postWithBody: false,
+    };
   },
 
   methods: {
@@ -31,13 +47,49 @@ export default {
         const user = await Auth.currentAuthenticatedUser();
         const session = await Auth.currentSession();
 
-        console.dir("User", user);
-        console.dir("Session", session);
+        console.group("logAuth");
+        console.log("User: ", user);
+        console.log("Session: ", session);
+        console.groupEnd();
       } catch (error) {
         console.error(error);
       }
-    }
-  }
+    },
+
+    async doGet(withQuery = false) {
+      const getOptions = { ...options };
+
+      const getPath = withQuery ? `${path}?name=J_Bezos` : path;
+
+      try {
+        const session = await Auth.currentSession();
+        getOptions.headers.Authorization = session.getIdToken().getJwtToken();
+
+        const data = await API.get(apiName, getPath, getOptions);
+        console.group("doGet");
+        console.log(data);
+        console.groupEnd();
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    async doPost(withBody = false) {
+      const postOptions = { ...options };
+
+      if (withBody) {
+        postOptions.body = { name: "Jeffrey B" };
+      }
+
+      const session = await Auth.currentSession();
+      postOptions.headers.Authorization = session.getIdToken().getJwtToken();
+
+      const data = await API.post(apiName, path, postOptions);
+      console.group("doPost");
+      console.log(data);
+      console.groupEnd();
+    },
+  },
 };
 </script>
 
@@ -63,7 +115,6 @@ export default {
   border-radius: 2px;
   color: #253746;
   font-size: 14px;
-  font-weight: 300;
   background: #ff9900;
   border: none;
   cursor: pointer;
@@ -75,5 +126,6 @@ export default {
 
 .actions__button[disabled] {
   color: hsla(0, 0%, 100%, 0.8);
+  cursor: not-allowed;
 }
 </style>

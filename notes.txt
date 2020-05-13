@@ -8,5 +8,19 @@ Added Auth
 
 
 ---------------------------------------------------------------------
-
+Added API
 ---------------------------------------------------------------------
+
+| Category | Resource name  | Operation | Provider plugin   |
+| -------- | -------------- | --------- | ----------------- |
+| Function | hellos         | Create    | awscloudformation |
+| Api      | hellos         | Create    | awscloudformation |
+| Auth     | awsvue1ad7931c | No Change | awscloudformation |
+
+| Category | Resource name  | Operation | Provider plugin   |
+| -------- | -------------- | --------- | ----------------- |
+| Function | secondResource | Create    | awscloudformation |
+| Api      | firstResource  | Create    | awscloudformation |
+| Auth     | awsvue1ad7931c | No Change | awscloudformation |
+| Function | hellos         | No Change | awscloudformation |
+| Api      | hellos         | No Change | awscloudformation |
