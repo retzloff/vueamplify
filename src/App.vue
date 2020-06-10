@@ -126,6 +126,7 @@ export default {
     },
 
     async doGet(withQuery = false) {
+      console.log("Getting");
       const getOptions = { ...options };
 
       const getPath = withQuery ? `${path}?name=J_Bezos` : path;
