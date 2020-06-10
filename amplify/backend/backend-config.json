@@ -1,6 +1,6 @@
 {
 	"function": {
-		"VueAmpAPI": {
+		"VueAmpLambda": {
 			"build": true,
 			"providerPlugin": "awscloudformation",
 			"service": "Lambda"
@@ -13,7 +13,7 @@
 			"dependsOn": [
 				{
 					"category": "function",
-					"resourceName": "VueAmpAPI",
+					"resourceName": "VueAmpLambda",
 					"attributes": [
 						"Name",
 						"Arn"
@@ -23,22 +23,22 @@
 		}
 	},
 	"auth": {
-		"awsvue3a48d0ba": {
+		"vueamplify09cc7057": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation",
 			"dependsOn": [],
 			"customAuth": false
 		}
 	},
-	"hosting": {
-		"S3AndCloudFront": {
-			"service": "S3AndCloudFront",
+	"storage": {
+		"vueAmpImages": {
+			"service": "S3",
 			"providerPlugin": "awscloudformation"
 		}
 	},
-	"storage": {
-		"vueawsimages": {
-			"service": "S3",
+	"hosting": {
+		"S3AndCloudFront": {
+			"service": "S3AndCloudFront",
 			"providerPlugin": "awscloudformation"
 		}
 	}

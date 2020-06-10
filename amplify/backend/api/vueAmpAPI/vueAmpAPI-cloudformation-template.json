@@ -14,15 +14,15 @@
         },
     
     
-          "functionVueAmpAPIName": {
+          "functionVueAmpLambdaName": {
             "Type": "String",
-            "Default": "functionVueAmpAPIName"
+            "Default": "functionVueAmpLambdaName"
           },
         
           
-          "functionVueAmpAPIArn": {
+          "functionVueAmpLambdaArn": {
             "Type": "String",
-            "Default": "functionVueAmpAPIArn"
+            "Default": "functionVueAmpLambdaArn"
           }
         
           
@@ -176,7 +176,7 @@
                             
                             {
                                 
-                                "Ref": "functionVueAmpAPIArn"
+                                "Ref": "functionVueAmpLambdaArn"
                             },
                             
                             "/invocations"
@@ -275,7 +275,7 @@
                           
                           {
                             
-                            "Ref": "functionVueAmpAPIArn"
+                            "Ref": "functionVueAmpLambdaArn"
                           },
                           
                           "/invocations"
@@ -332,12 +332,12 @@
                   
         
         
-        "functionVueAmpAPIPermissionvueAmpAPI": {
+        "functionVueAmpLambdaPermissionvueAmpAPI": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
                 "FunctionName": 
                     {
-                        "Ref":  "functionVueAmpAPIName"
+                        "Ref":  "functionVueAmpLambdaName"
                     },
                     
                     "Action": "lambda:InvokeFunction",

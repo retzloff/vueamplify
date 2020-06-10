@@ -33,12 +33,12 @@
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"greet",
+						"VueAmpLambda",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"greet",
+									"VueAmpLambda",
 									"-",
 									{
 										"Ref": "env"
@@ -67,8 +67,8 @@
 				"Runtime": "nodejs12.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "amplify-awsvue-dev-175953-deployment",
-					"S3Key": "amplify-builds/VueAmpAPI-5a673136676d4c4f4565-build.zip"
+					"S3Bucket": "amplify-vueamplify-dev-185925-deployment",
+					"S3Key": "amplify-builds/VueAmpLambda-636c306f7674466d7443-build.zip"
 				}
 			}
 		},
@@ -78,12 +78,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"awsvueLambdaRolec53e73a4",
+						"vueamplifyLambdaRole28120789",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"awsvueLambdaRolec53e73a4",
+									"vueamplifyLambdaRole28120789",
 									"-",
 									{
 										"Ref": "env"

@@ -2,7 +2,7 @@
     "paths": [
         {
             "name": "/greet",
-            "lambdaFunction": "VueAmpAPI",
+            "lambdaFunction": "VueAmpLambda",
             "privacy": {
                 "open": true
             }
@@ -12,19 +12,19 @@
     "apiName": "vueAmpAPI",
     "functionArns": [
         {
-            "lambdaFunction": "VueAmpAPI"
+            "lambdaFunction": "VueAmpLambda"
         }
     ],
     "privacy": {
         "auth": 0,
         "unauth": 0,
-        "authRoleName": "amplify-awsvue-dev-175953-authRole",
-        "unAuthRoleName": "amplify-awsvue-dev-175953-unauthRole"
+        "authRoleName": "amplify-vueamplify-dev-185925-authRole",
+        "unAuthRoleName": "amplify-vueamplify-dev-185925-unauthRole"
     },
     "dependsOn": [
         {
             "category": "function",
-            "resourceName": "VueAmpAPI",
+            "resourceName": "VueAmpLambda",
             "attributes": [
                 "Name",
                 "Arn"
